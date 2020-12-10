@@ -19,5 +19,8 @@ conda install pip
 
 # install the api client
 pip install uspto-opendata-python
+
+# run a test query
+uspto-peds get "15431686" --type=application --format=xml
 ```
 NOTE: As of Dec. 2020, `uspto-opendata-python` will not install if using Python 3.9.0 (returning gcc compilation error of [this type](https://github.com/pandas-dev/pandas/issues/32114)).
