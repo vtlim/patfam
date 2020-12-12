@@ -1,4 +1,4 @@
-# Patent Families
+# PatFam: Explore Patent Families
 
 About: TBD
 
