@@ -29,12 +29,15 @@ uspto-peds get "15431686" --type=application --format=xml
 ```
 NOTE: As of Dec. 2020, `uspto-opendata-python` will not install if using Python 3.9.0 (returning gcc compilation error of [this type](https://github.com/pandas-dev/pandas/issues/32114)).
 
+**See my tutorial walkthrough of the USPTO Open Data API Client [here](uspto/explore_uspto_data.ipynb).**
+
 ## [EPO] [Python EPO OPS Client](https://github.com/gsong/python-epo-ops-client)
 For data from the European Patent Office (EPO), we'll use the Open Patent Services (OPS) client developed by George Song et al. In order to get API access, you will need to [request access credentials](https://developers.epo.org/) from OPS. After I submitted my request, I was granted access from EPO the next day.
 ```
 conda activate patents
 pip install python-epo-ops-client
 ```
+**See my tutorial walkthrough of the Python EPO OPS Client [here](epo/explore_epo_data.ipynb).**
 
 ## Web Scraping
 
