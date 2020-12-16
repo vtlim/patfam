@@ -43,7 +43,37 @@ pip install python-epo-ops-client
 
 As far as I can tell, there is no freely available API access to the World Intellectual Property Organization (WIPO; for PCT applications) or to the Japan Patent Office (JPO). For those applications, we'll request data from the web directly.
 
+Before this I tried the Python `requests` package to obtain site data. I made a GET search query to WIPO PatentScope for `docId=WO2001029057`. However, no patent-related data could be found in the HTML content. It looks like the site is rendered dynamically using JavaScript so we'll use Selenium instead:
+
 ```
 conda activate patents
-conda install -c anaconda requests beautifulsoup4
+conda install -c conda-forge selenium
 ```
+
+Since I'm working in the Windows Subsystem for Linux (WSL2), I needed to download an Internet browser and related driver (following the [tutorial](https://www.gregbrisebois.com/posts/chromedriver-in-wsl2/) from Greg Brisebois). If you already have an Internet browser in the same OS that you're working in, you would just get to obtain the relevant driver for your browser, browser version, and OS.
+
+
+```
+# install dependencies
+sudo apt-get update
+sudo apt-get install -y curl unzip xvfb libxi6 libgconf-2-4
+
+# get chrome browser
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+
+# check browser install
+google-chrome --version
+
+# get chrome driver; USE THE DRIVER VERSION RELEVANT TO YOUR SETUP
+wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
+unzip chromedriver_linux64.zip
+sudo mv chromedriver /usr/bin/chromedriver
+sudo chown root:root /usr/bin/chromedriver
+sudo chmod +x /usr/bin/chromedriver
+
+# check driver install
+chromedriver --version
+```
+
+Optionally, if you want to work with the Chrome window (as opposed to using it in "headless form"), try the command `google-chrome` to check that the window will come up. I had to resolve a few issues with WSL2 on my end before it worked. More details [here](https://github.com/vtlim/patfam/blob/main/wsl2_xserver.md).
