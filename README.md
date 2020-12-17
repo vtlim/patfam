@@ -1,6 +1,6 @@
 # PatFam: Patent Families
 
-_README last edited_: 14 Dec 2020
+_README last edited_: 16 Dec 2020
 
 The purpose of this tool is to allow users to easily determine whether patent applications are in the same family. Instead of having to check each individual patent office's website, users can enter patent, application, or publication numbers for various patent offices and see the relationship between the documents. 
 
@@ -77,3 +77,5 @@ chromedriver --version
 ```
 
 Optionally, if you want to work with the Chrome window (as opposed to using it in "headless form"), try the command `google-chrome` to check that the window will come up. I had to resolve a few issues with WSL2 on my end before it worked. More details [here](https://github.com/vtlim/patfam/blob/main/wsl2_xserver.md).
+
+See an example of using Selenium to obtain WIPO PatentScope data [here](wipo/explore_wipo_data.ipynb).
