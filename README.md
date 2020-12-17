@@ -79,4 +79,4 @@ chromedriver --version
 Optionally, if you want to work with the Chrome window (as opposed to using it in "headless form"), try the command `google-chrome` to check that the window will come up. I had to resolve a few issues with WSL2 on my end before it worked. More details [here](https://github.com/vtlim/patfam/blob/main/wsl2_xserver.md).
 
 #### See an example of using Selenium to obtain WIPO PatentScope data [here](wipo/explore_wipo_data.ipynb).
-#### See an example of using Selenium to obtain JPO PatentScope data [here](jpo/explore_jpo_data.ipynb).
+#### See an example of using Selenium to obtain JPO patent data [here](jpo/explore_jpo_data.ipynb).
