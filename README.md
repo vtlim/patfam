@@ -29,17 +29,17 @@ uspto-peds get "15431686" --type=application --format=xml
 ```
 NOTE: As of Dec. 2020, `uspto-opendata-python` will not install if using Python 3.9.0 (returning gcc compilation error of [this type](https://github.com/pandas-dev/pandas/issues/32114)).
 
-### See my tutorial walkthrough of the USPTO Open Data API Client [here](uspto/explore_uspto_data.ipynb).
+#### See my tutorial walkthrough of the USPTO Open Data API Client [here](uspto/explore_uspto_data.ipynb).
 
-## [EPO] [Python EPO OPS Client](https://github.com/gsong/python-epo-ops-client)
+### [EPO] [Python EPO OPS Client](https://github.com/gsong/python-epo-ops-client)
 For data from the European Patent Office (EPO), we'll use the Open Patent Services (OPS) client developed by George Song et al. In order to get API access, you will need to [request access credentials](https://developers.epo.org/) from OPS. After I submitted my request, I was granted access from EPO the next day.
 ```
 conda activate patents
 pip install python-epo-ops-client
 ```
-### See my tutorial walkthrough of the Python EPO OPS Client [here](epo/explore_epo_data.ipynb).
+#### See my tutorial walkthrough of the Python EPO OPS Client [here](epo/explore_epo_data.ipynb).
 
-## Web Scraping
+### Web Scraping
 
 As far as I can tell, there is no freely available API access to the World Intellectual Property Organization (WIPO; for PCT applications) or to the Japan Patent Office (JPO). For those applications, we'll request data from the web directly.
 
@@ -78,4 +78,4 @@ chromedriver --version
 
 Optionally, if you want to work with the Chrome window (as opposed to using it in "headless form"), try the command `google-chrome` to check that the window will come up. I had to resolve a few issues with WSL2 on my end before it worked. More details [here](https://github.com/vtlim/patfam/blob/main/wsl2_xserver.md).
 
-### See an example of using Selenium to obtain WIPO PatentScope data [here](wipo/explore_wipo_data.ipynb).
+#### See an example of using Selenium to obtain WIPO PatentScope data [here](wipo/explore_wipo_data.ipynb).
