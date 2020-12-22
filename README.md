@@ -13,15 +13,16 @@ For data from the United States Patent and Trademark Office (USPTO), we'll use t
 
 ```
 # install libxml2 dependencies (make sure you have -dev versions)
+sudo apt-get update
 sudo apt-get install libxml2-dev libxslt1-dev python-lxml
 
 # create conda environment and install some packages (see note below)
-conda create -n patents python=3.6
-conda activate patents
+conda create -n patfam python=3.6
+conda activate patfam
 conda install -c anaconda lxml
-conda install pip
 
-# install the api client
+# install pip (if you don't already have it) and the api client
+conda install pip
 pip install uspto-opendata-python
 
 # run a test query
@@ -34,7 +35,7 @@ NOTE: As of Dec. 2020, `uspto-opendata-python` will not install if using Python 
 ### [EPO] [Python EPO OPS Client](https://github.com/gsong/python-epo-ops-client)
 For data from the European Patent Office (EPO), we'll use the Open Patent Services (OPS) client developed by George Song et al. In order to get API access, you will need to [request access credentials](https://developers.epo.org/) from OPS. After I submitted my request, I was granted access from EPO the next day.
 ```
-conda activate patents
+conda activate patfam
 pip install python-epo-ops-client
 ```
 #### See my tutorial walkthrough of the Python EPO OPS Client [here](epo/explore_epo_data.ipynb).
@@ -46,7 +47,7 @@ As far as I can tell, there is no freely available API access to the World Intel
 Before this I tried the Python `requests` package to obtain site data. I made a GET search query to WIPO PatentScope for `docId=WO2001029057`. However, no patent-related data could be found in the HTML content. It looks like the site is rendered dynamically using JavaScript so we'll use Selenium instead:
 
 ```
-conda activate patents
+conda activate patfam
 conda install -c conda-forge selenium
 ```
 
