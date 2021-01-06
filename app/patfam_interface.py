@@ -10,7 +10,7 @@ front-end hook ups:
  2. can't submit if zero inputs (1 is ok i think)
 
 code structure
- 1. async parallel processing for diff jurisdictions
+ 1. async parallel processing for diff jurisdictions (except uspto first)
 
 """
 
@@ -29,6 +29,7 @@ from get_wipo_identifiers import get_wipo_identifiers
 # TODO: include functionality for inputDocType of patno
 list_of_inputs = [
     {"inputNo":"09/418,640",     "inputDocType":"application", "jurisdiction":"uspto"},
+    {"inputNo":"10/110,512",     "inputDocType":"application", "jurisdiction":"uspto"},
     {"inputNo":"PCT/US00/27963", "inputDocType":"application", "jurisdiction":"wipo"},
     {"inputNo":"WO 01/29057",    "inputDocType":"publication", "jurisdiction":"wipo"},
     {"inputNo":"970724.1",       "inputDocType":"application", "jurisdiction":"epo"},
@@ -36,12 +37,52 @@ list_of_inputs = [
 ]
 num_inputs = len(list_of_inputs)
 
+
+def check_relation(fam_dict, last_n_chars, ref_value, fam_node, ref_node):
+    """
+    """
+
+    found_a_relation = False
+
+    if last_n_chars == 0:
+        last_n_chars = len(ref_value)
+
+    # check if in parent []
+    this_famdata_parent = fam_dict["parent"]
+    for value in this_famdata_parent:
+        print("\nchecking ", value, "against reference: ", ref_value)
+        if ( value[-last_n_chars:] == ref_value[-last_n_chars:] ):
+            print("found match")
+
+            # add edge from parent to child
+            DG.add_edge(ref_node, fam_node)
+            found_a_relation = True
+            break
+
+    if found_a_relation:
+        return found_a_relation
+
+    # check if in child []
+    this_famdata_child = fam_dict["child"]
+    for value in this_famdata_child:
+        print("\nchecking ", value, "against reference: ", ref_value)
+        if ( value[-last_n_chars:] == ref_value[-last_n_chars:] ):
+            print("found match")
+
+            # add edge from parent to child
+            DG.add_edge(fam_node, ref_node)
+            found_a_relation = True
+            break
+
+    return found_a_relation
+
+
+
 # generate a directed graph with nodes for each input
 DG = nx.DiGraph()
 input_numbers = [ sub["inputNo"] for sub in list_of_inputs ]
 DG.add_nodes_from(input_numbers)
-
-DG.add_edge(input_numbers[0], input_numbers[0])
+#DG.add_edge(input_numbers[0], input_numbers[0])
 
 # separate input entries by jurisdiction
 inputs_uspto = [ sub for sub in list_of_inputs if
@@ -72,7 +113,8 @@ for entry in inputs_uspto:
         proc_input = proc_input + "A1"
 
     # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    entry["famData"] = {'parent': [], 'child': ['PCT/US00/27963'], 'uncategorized': []}
+    if curr_input == "09/418,640": entry["famData"] = {'parent': [], 'child': ['PCT/US00/27963'], 'uncategorized': []}
+    if curr_input == "10/110,512": entry["famData"] = {'parent': [], 'child': [], 'uncategorized': []}
     continue
     # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -109,31 +151,49 @@ for entry in inputs_wipo:
     if curr_type == "application" and (
         "PCT" in curr_input and "US" in curr_input):
 
-        # only check last five digits to account for cases like:
-        # PCT/US00/27963 == PCT/US2000/027963
-        last_five_digits = curr_input[-5:]
 
         # get uspto entries having famdata
         uspto_with_famdata = [ sub for sub in inputs_uspto if
             "famData" in sub ]
 
+        # check whether any of the uspto entr(ies) are related to this pct
         for subentry in uspto_with_famdata:
 
-            # check if in parent []
-            this_famdata_parent = subentry["famData"]["parent"]
-            for value in this_famdata_parent:
-                if value[-5:] == last_five_digits:
-                    # add edge from parent to child
-                    DG.add_edge(curr_input, subentry["inputNo"])
-                    continue
+            # only check last five digits to account for cases like:
+            # PCT/US00/27963 == PCT/US2000/027963
+            check_relation(
+                subentry["famData"], 5, curr_input,
+                subentry["inputNo"], curr_input)
 
-            # check if in child []
-            this_famdata_child = subentry["famData"]["child"]
-            for value in this_famdata_child:
-                if value[-5:] == last_five_digits:
-                    # add edge from parent to child
-                    DG.add_edge(subentry["inputNo"], curr_input)
-                    continue
+        #if not any(subentry_relations):
+        # also use the uspto api to check the pct/us num
+        # possibly redundant, but consider counterexample:
+        # [09/418,640 ==> {PCT/US00/27963] ==> 10/110,512 (abandoned)}
+
+        # format input number?
+
+        # make api request
+        # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        data_wipo_uspto = {'parent': ['09418640'], 'child': ['10110512'], 'uncategorized': []}
+        # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+        #data_wipo_uspto = get_uspto_continuity(curr_input, doc_type=curr_type)
+
+        # handle error (TODO: create class of errors in this doc for indiv juris)
+        if data_wipo_uspto == "ERROR":
+            continue
+        else:
+            entry["famData"] = data_wipo_uspto
+
+        # check each parent/child for whether last 6 digits in inputs_uspto
+        # check all inputs_uspto, not just those that have famData
+        for subentry in inputs_uspto:
+
+            subentry_val = re.sub(r'[^a-zA-Z0-9]', '',
+                subentry["inputNo"])
+
+            check_relation(data_wipo_uspto, 6, subentry_val,
+                curr_input, subentry["inputNo"])
+
 
     # remove any spaces, punctuation (leave numbers/letters)
     proc_input = re.sub(r'[^a-zA-Z0-9]', '', curr_input)
@@ -155,6 +215,7 @@ for entry in inputs_jpo:
     continue
 
 print(inputs_uspto, inputs_wipo, inputs_epo, inputs_jpo)
+print(list(DG.edges))
 
 
 # show hierarchical tree with matplotlib/pygraphviz
