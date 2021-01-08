@@ -112,11 +112,11 @@ for entry in inputs_uspto:
     if (curr_type == "publication") and ("A" not in proc_input):
         proc_input = proc_input + "A1"
 
-    # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-    if curr_input == "09/418,640": entry["famData"] = {'parent': [], 'child': ['PCT/US00/27963'], 'uncategorized': []}
-    if curr_input == "10/110,512": entry["famData"] = {'parent': [], 'child': [], 'uncategorized': []}
-    continue
-    # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    ## >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    #if curr_input == "09/418,640": entry["famData"] = {'parent': [], 'child': ['PCT/US00/27963'], 'uncategorized': []}
+    #if curr_input == "10/110,512": entry["famData"] = {'parent': [], 'child': [], 'uncategorized': []}
+    #continue
+    ## >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     # make api request
     data_uspto = get_uspto_continuity(proc_input, doc_type=curr_type)
@@ -174,9 +174,10 @@ for entry in inputs_wipo:
 
         # make api request
         # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        data_wipo_uspto = {'parent': ['09418640'], 'child': ['10110512'], 'uncategorized': []}
+        #data_wipo_uspto = {'parent': ['09418640'], 'child': ['10110512'], 'uncategorized': []}
         # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        #data_wipo_uspto = get_uspto_continuity(curr_input, doc_type=curr_type)
+        data_wipo_uspto = get_uspto_continuity(curr_input, doc_type=curr_type)
+        print(f"\n\n\n{data_wipo_uspto}\n\n\n")
 
         # handle error (TODO: create class of errors in this doc for indiv juris)
         if data_wipo_uspto == "ERROR":
@@ -203,7 +204,7 @@ for entry in inputs_wipo:
 
     if data_wipo == "UNDEFINED":
         continue
-    # "The PatentScope search query returned too many results. Try a more definitive input number."
+    # "The PatentScope search query was unsuccessful."
 
 
 
