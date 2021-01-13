@@ -119,7 +119,11 @@ for entry in inputs_uspto:
     ## >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
     # make api request
-    data_uspto = get_uspto_continuity(proc_input, doc_type=curr_type)
+    try:
+        data_uspto = get_uspto_continuity(proc_input, doc_type=curr_type)
+    except AssertionError:
+        pass
+        #f"Unable to reach USPTO Patent Examination Data System. Please try again in a few moments."
 
     if data_uspto == "ERROR":
         continue
@@ -176,7 +180,12 @@ for entry in inputs_wipo:
         # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
         #data_wipo_uspto = {'parent': ['09418640'], 'child': ['10110512'], 'uncategorized': []}
         # >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-        data_wipo_uspto = get_uspto_continuity(curr_input, doc_type=curr_type)
+        try:
+            data_wipo_uspto = get_uspto_continuity(curr_input, doc_type=curr_type)
+        except AssertionError:
+            data_wipo_uspto = "ERROR"
+            #f"Unable to reach USPTO Patent Examination Data System. Please try again in a few moments."
+
         print(f"\n\n\n{data_wipo_uspto}\n\n\n")
 
         # handle error (TODO: create class of errors in this doc for indiv juris)
@@ -195,6 +204,8 @@ for entry in inputs_wipo:
             check_relation(data_wipo_uspto, 6, subentry_val,
                 curr_input, subentry["inputNo"])
 
+        continue
+
 
     # remove any spaces, punctuation (leave numbers/letters)
     proc_input = re.sub(r'[^a-zA-Z0-9]', '', curr_input)
@@ -204,6 +215,8 @@ for entry in inputs_wipo:
 
     if data_wipo == "UNDEFINED":
         continue
+    else:
+        entry["famData"] = data_wipo
     # "The PatentScope search query was unsuccessful."
 
 

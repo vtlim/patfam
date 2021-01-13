@@ -42,9 +42,9 @@ def navigate_target_page(driver):
         mydata).group(1)
 
     # split the priority data, of form: 09/418,640 15.10.1999 US
-    result = priority_data.split()[0]
+    clean_priority_data = priority_data.split()[0]
 
-    return result
+    return clean_priority_data
 
 
 def get_wipo_identifiers(input_num, doc_type):
@@ -76,7 +76,10 @@ def get_wipo_identifiers(input_num, doc_type):
 
     # assuming we're on target page, scrape biblio info
     # return is "UNDEFINED" if not on the target page or biblio missing
-    result = navigate_target_page(driver)
+    clean_priority_data = navigate_target_page(driver)
 
-    return result
+    if clean_priority_data == "UNDEFINED":
+        return clean_priority_data
+
+    return { "parent": [clean_priority_data], "child": [], "uncategorized": [] }
 
