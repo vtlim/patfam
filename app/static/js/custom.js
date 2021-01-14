@@ -1,14 +1,14 @@
 
-numCards = 1;
+var nextCard = 2;
 function cloneInputCard() {
 
     // prepare new id's and names
     // https://stackoverflow.com/a/8513046
-    suffix = ('0' + numCards).slice(-2);
-    newId = "inputCard_" + suffix;
-    newNumName = "inputNum_" + suffix;
-    newTypeName = "inputType_" + suffix;
-    newJurisName = "inputJuris_" + suffix;
+    var suffix = ('0' + nextCard).slice(-2);
+    var newId = "inputCard_" + suffix;
+    var newNumName = "inputNum_" + suffix;
+    var newTypeName = "inputType_" + suffix;
+    var newJurisName = "inputJuris_" + suffix;
 
     // get the outer most div and clone it
     // https://stackoverflow.com/a/11985200
@@ -18,31 +18,34 @@ function cloneInputCard() {
     // rename the div's id
     clone.id = newId;
 
-    // rename all the 'name' attributes in the clone
-    //clone.getElementsByName("inputType_01")[0].setAttribute('name', newNumName)
-
-    // TODO START HERE
-     var allInputs = clone.getElementsByTagName("input");
-    // console.log(allInputs.getElementsByTagName("inputType_01"));
-    // var typeNames = clone.getElementsByTagName("inputType_01");
-    // console.log(typeNames)
-    // var jurisNames = clone.getElementsByName("inputJuris_01");
-
+    // rename the child element names and clear/uncheck any user response
+    var allInputs = clone.getElementsByTagName("input");
     allInputs = [].slice.call(allInputs, 0);
-    for (var i = 0; i < allInputs.length; ++i)
+
+    for (var i = 0; i < allInputs.length; ++i) {
+
         var name = allInputs[i].getAttribute("name");
-        console.log(name);
-        //allInputs[i].setAttribute('name', newJurisName);
 
-    // typeNames = [].slice.call(typeNames, 0);
-    // for (var i = 0; i < typeNames.length; ++i)
-    //     typeNames[i].setAttribute('name', newTypeName);
+        if (name.includes("Num")) {
+            allInputs[i].setAttribute('name', newNumName);
+            allInputs[i].value = '';
+        }
+        if (name.includes("Type")) {
+            allInputs[i].setAttribute('name', newTypeName);
+            allInputs[i].checked = false;
+        }
+        if (name.includes("Juris")) {
+            allInputs[i].setAttribute('name', newJurisName);
+            allInputs[i].checked = false;
+        }
+    }
 
-    // jurisNames = [].slice.call(jurisNames, 0);
-    // for (var i = 0; i < jurisNames.length; ++i)
-    //     jurisNames[i].setAttribute('name', newJurisName);
+    // finally, add the cloned element after the latest card
+    var lastCard = nextCard - 1;
+    var oldCardName = "inputCard_" + ('0' + lastCard).slice(-2);
+    var lastdiv = document.getElementById(oldCardName);
 
-    // finally, add the cloned element to html body
-    document.body.appendChild(clone);
-    numCards++;
+    // https://stackoverflow.com/a/11117599
+    lastdiv.parentNode.insertBefore(clone, lastdiv.nextSibling);
+    nextCard++;
 }

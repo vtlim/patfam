@@ -15,8 +15,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>PatFam | Identify related members of a patent family</title>
-
-
   </head>
 
   <body>
@@ -55,14 +53,13 @@
 
       <div class="row">
 
-        <!-- Left side stuff -->
+        <!------ LEFT SIDE STUFF ------>
         <div class="col s3">
           <span class="flow-text">Input</span>
 
-
+          <!-- input card -->
           <div class="card blue lighten-5" id="inputCard_01">
             <div class="card-content white-text">
-
 
               <!-- card input box -->
               <div class="input-field">
@@ -133,15 +130,23 @@
           </div>
 
 
-          <!-- left side submit button -->
-          <div class="card-action" align="right">
-            <button class="btn waves-effect waves-light blue darken-2" type="submit" name="action" onclick="cloneInputCard()">Submit
-            </button>
-          </div>
+          <!-- left side buttons -->
+          <ul>
+            <li>
+              <a class="btn-floating waves-effect waves-light pink darken-2" onclick="cloneInputCard()">
+                <i class="material-icons">add</i>
+              </a>
+            </li>
+            <li style="margin-top:4px; float:right">
+              <button class="btn waves-effect waves-light blue darken-2" type="submit" onclick="cloneInputCard()">
+                Submit
+              </button>
+            </li>
+          </ul>
 
         </div>
 
-        <!-- Right side stuff -->
+        <!------ RIGHT SIDE STUFF ------>
         <div class="col s8">
           <span class="flow-text">Output</span>
         </div>
