@@ -1,24 +1,159 @@
 <!DOCTYPE html>
 <html>
   <head>
+
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}"  media="screen,projection"/>
+
+    <!--Import custom.css-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}"  media="screen,projection"/>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <title>PatFam | Identify related members of a patent family</title>
 
+
   </head>
 
   <body>
 
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!-- Navbar goes here -->
+    <div class="navbar-fixed" style="margin-bottom:30px; ">
+      <nav>
+        <div class="nav-wrapper blue darken-3">
+          <a href="#" class="brand-logo" style="margin-left:20px; ">{{site_title}}</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="https://github.com/vtlim/patfam">Code</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
 
-    <h1>Hello, World!</h1>
+    <!-- Page Content goes here -->
+    <div class="container">
+
+      <div class="row">
+        <div class="col s1">1</div>
+        <div class="col s1">2</div>
+        <div class="col s1">3</div>
+        <div class="col s1">4</div>
+        <div class="col s1">5</div>
+        <div class="col s1">6</div>
+        <div class="col s1">7</div>
+        <div class="col s1">8</div>
+        <div class="col s1">9</div>
+        <div class="col s1">10</div>
+        <div class="col s1">11</div>
+        <div class="col s1">12</div>
+      </div>
+
+
+
+      <div class="row">
+
+        <!-- Left side stuff -->
+        <div class="col s3">
+          <span class="flow-text">Input</span>
+
+
+          <div class="card blue lighten-5" id="inputCard_01">
+            <div class="card-content white-text">
+
+
+              <!-- card input box -->
+              <div class="input-field">
+                <input name="inputNum_01" type="text" placeholder="Ex. 10/987,654">
+                <label>Document number</label>
+              </div>
+
+              <ul>
+              <li>
+
+              <!-- card radio doctype -->
+              <form action="#" style="margin-right:30px">
+                <label style="display:block; margin-bottom:10px;">Document type</label>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputType_01" type="radio" />
+                    <span>Application</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputType_01" type="radio" />
+                    <span>Publication</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputType_01" type="radio" />
+                    <span style="display:block; margin-bottom:15px;">Patent</span>
+                  </label>
+                </p>
+              </form>
+
+              </li><li>
+
+              <!-- card radio juris -->
+              <form action="#" >
+                <label style="display:block; margin-bottom:10px;">Jurisdiction</label>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputJuris_01" type="radio" />
+                    <span>USPTO</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputJuris_01" type="radio" />
+                    <span>WIPO</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputJuris_01" type="radio" />
+                    <span>EPO</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputJuris_01" type="radio" />
+                    <span>JPO</span>
+                  </label>
+                </p>
+              </form>
+
+              </li></ul>
+
+            </div>
+          </div>
+
+
+          <!-- left side submit button -->
+          <div class="card-action" align="right">
+            <button class="btn waves-effect waves-light blue darken-2" type="submit" name="action" onclick="cloneInputCard()">Submit
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Right side stuff -->
+        <div class="col s8">
+          <span class="flow-text">Output</span>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
 
   </body>
 </html>
