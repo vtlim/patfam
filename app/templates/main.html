@@ -57,104 +57,108 @@
         <div class="col s3">
           <span class="flow-text">Input</span>
 
-          <!-- input card -->
-          <div class="card blue lighten-5" id="inputCard_01">
-            <div class="card-content white-text">
+          <!-- all cards go in a single form, easier to validate/submit -->
+          <form method="POST" id="inputForm_01">
 
-              <!-- card input box -->
-              <div class="input-field">
-                <input name="inputNum_01" type="text" placeholder="Ex. 10/987,654">
-                <label>Document number</label>
-              </div>
+            <!-- input card -->
+            <div class="card blue lighten-5" id="inputCard_01">
+              <div class="card-content white-text">
 
-              <ul>
-              <li>
+                <!-- card input box -->
+                <div class="input-field">
+                  <input name="inputNum_01" type="text" placeholder="Ex. 10/987,654" class="validate" required>
+                  <label>Document number</label>
+                </div>
 
-              <!-- card radio doctype -->
-              <form action="#" style="margin-right:30px">
-                <label style="display:block; margin-bottom:10px;">Document type</label>
-                <p>
-                  <label>
-                    <input class="with-gap" name="inputType_01" type="radio" />
-                    <span>Application</span>
-                  </label>
-                </p>
-                <p>
-                  <label>
-                    <input class="with-gap" name="inputType_01" type="radio" />
-                    <span>Publication</span>
-                  </label>
-                </p>
-                <p>
-                  <label>
-                    <input class="with-gap" name="inputType_01" type="radio" />
-                    <span style="display:block; margin-bottom:15px;">Patent</span>
-                  </label>
-                </p>
-              </form>
+                <ul>
+                <li>
 
-              </li><li>
+                <!-- card radio doctype -->
+                <div style="margin-right:30px">
+                  <label style="display:block; margin-bottom:10px;">Document type</label>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="inputType_01" type="radio" value="app" required />
+                      <span>Application</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="inputType_01" type="radio" value="pub" />
+                      <span>Publication</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="inputType_01" type="radio" value="pat"/>
+                      <span style="display:block; margin-bottom:15px;">Patent</span>
+                    </label>
+                  </p>
+                </div>
 
-              <!-- card radio juris -->
-              <form action="#" >
+                </li><li>
+
+                <!-- card radio juris -->
                 <label style="display:block; margin-bottom:10px;">Jurisdiction</label>
                 <p>
                   <label>
-                    <input class="with-gap" name="inputJuris_01" type="radio" />
+                    <input class="with-gap" name="inputJuris_01" type="radio" value="uspto" required />
                     <span>USPTO</span>
                   </label>
                 </p>
                 <p>
                   <label>
-                    <input class="with-gap" name="inputJuris_01" type="radio" />
+                    <input class="with-gap" name="inputJuris_01" type="radio" value="wipo" />
                     <span>WIPO</span>
                   </label>
                 </p>
                 <p>
                   <label>
-                    <input class="with-gap" name="inputJuris_01" type="radio" />
+                    <input class="with-gap" name="inputJuris_01" type="radio" value="epo" />
                     <span>EPO</span>
                   </label>
                 </p>
                 <p>
                   <label>
-                    <input class="with-gap" name="inputJuris_01" type="radio" />
+                    <input class="with-gap" name="inputJuris_01" type="radio" value="jpo" />
                     <span>JPO</span>
                   </label>
                 </p>
-              </form>
 
-              </li></ul>
+                </li></ul>
 
-            </div>
-          </div>
+              </div> <!-- card-content -->
+            </div> <!-- card -->
 
 
-          <!-- left side buttons -->
-          <ul>
-            <li>
-              <a class="btn-floating waves-effect waves-light pink darken-2" onclick="cloneInputCard()">
-                <i class="material-icons">add</i>
-              </a>
-            </li>
-            <li style="margin-top:4px; float:right">
-              <button class="btn waves-effect waves-light blue darken-2" type="submit" onclick="cloneInputCard()">
-                Submit
-              </button>
-            </li>
-          </ul>
+            <!-- left side buttons -->
+            <ul>
+              <li>
+                <a class="btn-floating waves-effect waves-light pink darken-2" onclick="cloneInputCard()">
+                  <i class="material-icons">add</i>
+                </a>
+              </li>
+              <li style="margin-top:4px; float:right">
+                <button class="btn waves-effect waves-light blue darken-2" type="submit" onclick="submitForm()">
+                  Submit
+                </button>
+              </li>
+            </ul>
 
-        </div>
+          </form>
+        </div> <!-- left col -->
+
+
 
         <!------ RIGHT SIDE STUFF ------>
         <div class="col s8">
           <span class="flow-text">Output</span>
-        </div>
+        </div> <!-- right col -->
 
 
 
-      </div>
-    </div>
+      </div> <!-- row -->
+    </div> <!-- container -->
 
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
