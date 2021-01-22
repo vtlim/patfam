@@ -20,3 +20,5 @@ def index():
     return render_template('main.html', site_title=site_title, result=result)
     #return redirect(url_for('index'))
 
+if __name__ == "__main__":
+    app.run(debug=True)
