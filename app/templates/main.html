@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <!--Import custom code and D3 JS library-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/d3.v6.min.js') }}" async></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}" async></script>
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -13,6 +16,7 @@
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 
     <title>PatFam | Identify related members of a patent family</title>
   </head>
@@ -149,19 +153,31 @@
         </div> <!-- left col -->
 
 
+        <!------ COL GAP IN MIDDLE ------>
+        <div class="col s1">
+        </div>
 
         <!------ RIGHT SIDE STUFF ------>
-        <div class="col s8">
+        <div class="col s6">
           <span class="flow-text">Output</span>
+
+          <div id="outdiv"></div>
+
         </div> <!-- right col -->
 
 
+        <!------ RIGHT MARGIN STUFF ------>
+        <div class="col s2">
+          <div>
+            blah blah blah, stuff that was not found
+          </div>
+        </div> <!-- right margin -->
 
       </div> <!-- row -->
     </div> <!-- container -->
 
     <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/drawtree.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
 
   </body>

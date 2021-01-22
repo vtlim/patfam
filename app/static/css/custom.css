@@ -31,3 +31,27 @@ li {
 [type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
     background-color: #0d47a1 !important;
 }
+
+/* STYLING FOR D3 OUTPUT */
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
+.tooltip {
+    color: #424242;
+    position: absolute;
+    text-align: left;
+    min-width: 40px;
+    padding: 6px;
+    font: 12px sans-serif;
+    background: #bbdefb;
+    border: 0px;
+    border-radius: 3px;   /* higher = curvier corners */
+    pointer-events: none;
+}
+.canvas-border {
+ stroke: black;
+ fill: none;
+ stroke-width: 2px;
+}
