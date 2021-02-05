@@ -8,6 +8,19 @@ Currently supports: TBD
 
 ## Setup
 
+### Summary of conda installs
+See below for important notes including system dependencies, version compatibility, access keys, etc.
+```
+conda create -n patfam python=3.6
+conda activate patfam
+
+conda install pip
+pip install uspto-opendata-python
+
+conda install -c anaconda lxml networkx pygraphviz graphviz flask gunicorn
+conda install -c conda-forge selenium matplotlib
+```
+
 ### [USPTO] [USPTO Open Data API Client](https://docs.ip-tools.org/uspto-opendata-python/index.html)
 For data from the United States Patent and Trademark Office (USPTO), we'll use the API client for the USPTO Patent Examination Data System (PEDS). Do not mix up PEDS with PBD, which is the USPTO PAIR Bulk Data (PBD) system. The PBD has been decommissioned.
 
