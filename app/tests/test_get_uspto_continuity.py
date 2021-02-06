@@ -3,7 +3,7 @@ test_get_uspto_continuity.py
 """
 import sys, os
 
-sys.path.append(os.path.abspath('../'))
+sys.path.append(os.path.realpath(os.path.dirname(__file__) + "/.." ))
 from get_uspto_continuity import get_uspto_continuity
 
 def test_get_uspto_continuity():
