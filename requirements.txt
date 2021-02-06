@@ -3,7 +3,6 @@
 # This file may be used to create an environment using:
 # $ conda create --name <env> --file <this file>
 # platform: linux-64
-_libgcc_mutex=0.1=main
 amqp=2.6.1=pypi_0
 args=0.1.0=pypi_0
 attrs=20.3.0=pyhd3deb0d_0
