@@ -6,6 +6,9 @@ The purpose of this tool is to allow users to easily determine whether patent ap
 
 Currently supports: TBD
 
+![screenshot](https://github.com/vtlim/patfam/blob/foundations/screenshot.png)
+
+
 ## Setup
 
 ### [USPTO] [USPTO Open Data API Client](https://docs.ip-tools.org/uspto-opendata-python/index.html)
