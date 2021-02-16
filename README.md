@@ -6,7 +6,7 @@ The purpose of this tool is to allow users to easily determine whether patent ap
 
 Currently supports: TBD
 
-![screenshot](https://github.com/vtlim/patfam/blob/foundations/screenshot.png)
+![screenshot](https://github.com/vtlim/patfam/blob/foundations/archive/screenshot.png)
 
 
 ## Setup
