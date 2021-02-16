@@ -1,0 +1,63 @@
+/* for radio groups side-by-side
+https://stackoverflow.com/a/21678797 */
+ul {
+    margin: 0 auto;
+}
+li {
+    display: inline-block;
+    vertical-align: top;
+}
+
+
+/* EDIT FOCUS COLORS TO BLUE THEME, blue darken-4 */
+/* from materializecss.com */
+/* input label - focus color */
+.input-field input[type=text]:focus + label {
+    color: #0d47a1 !important;
+}
+/* input underline - focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #0d47a1 !important;
+    box-shadow: 0 1px 0 0 #0d47a1 !important;
+}
+
+/* https://stackoverflow.com/q/52826270 */
+/* radio outer circle - checked color  */
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:before, [type="radio"].with-gap:checked + span:after {
+    border: 2px solid #0d47a1 !important;
+}
+
+/* radio inner fill - checked color */
+[type="radio"]:checked + span:after, [type="radio"].with-gap:checked + span:after {
+    background-color: #0d47a1 !important;
+}
+
+/* STYLING FOR D3 OUTPUT */
+.rectnode {
+    fill: #0d47a1;
+}
+
+.link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+}
+.tooltip {
+    color: #424242;       /* grey darken-3 */
+    position: absolute;
+    text-align: left;
+    min-width: 20px;
+    max-width: 200px;
+    padding: 6px;
+    padding-top: 4px;
+    font-size: 12px;      
+    background: #e3f2fd;  /* blue lighten-5 */
+    border: 1px solid #424242;
+    border-radius: 2px;   /* higher = curvier corners */
+    pointer-events: none;
+}
+.canvas-border {
+ stroke: black;
+ fill: none;
+ stroke-width: 2px;
+}

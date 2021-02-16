@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import custom code and D3 JS library-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/d3.v6.min.js') }}" async></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}" async></script>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}"  media="screen,projection"/>
+
+    <!--Import custom.css-->
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}"  media="screen,projection"/>
+
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+
+    <title>PatFam | Identify related members of a patent family</title>
+  </head>
+
+  <body>
+
+    <!-- Navbar goes here -->
+    <div class="navbar-fixed" style="margin-bottom:30px; ">
+      <nav>
+        <div class="nav-wrapper blue darken-3">
+          <a href="#" class="brand-logo" style="margin-left:20px; ">{{site_title}}</a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="https://github.com/vtlim/patfam">Code</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Page Content goes here -->
+    <div class="container">
+
+      <div class="row">
+        <div class="col s1">1</div>
+        <div class="col s1">2</div>
+        <div class="col s1">3</div>
+        <div class="col s1">4</div>
+        <div class="col s1">5</div>
+        <div class="col s1">6</div>
+        <div class="col s1">7</div>
+        <div class="col s1">8</div>
+        <div class="col s1">9</div>
+        <div class="col s1">10</div>
+        <div class="col s1">11</div>
+        <div class="col s1">12</div>
+      </div>
+
+
+
+      <div class="row">
+
+        <!------ LEFT SIDE STUFF ------>
+        <div class="col s3">
+          <span class="flow-text">Input</span>
+
+          <!-- all cards go in a single form, easier to validate/submit -->
+          <form method="POST" id="inputForm_01">
+
+            <!-- input card -->
+            <div class="card blue lighten-5" id="inputCard_01">
+              <div class="card-content white-text">
+
+                <!-- card input box -->
+                <div class="input-field">
+                  <input name="inputNum_01" type="text" placeholder="Ex. 10/987,654" class="validate" required>
+                  <label>Document number</label>
+                </div>
+
+                <ul>
+                <li>
+
+                <!-- card radio doctype -->
+                <div style="margin-right:30px">
+                  <label style="display:block; margin-bottom:10px;">Document type</label>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="inputType_01" type="radio" value="app" required />
+                      <span>Application</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="inputType_01" type="radio" value="pub" />
+                      <span>Publication</span>
+                    </label>
+                  </p>
+                  <p>
+                    <label>
+                      <input class="with-gap" name="inputType_01" type="radio" value="pat"/>
+                      <span style="display:block; margin-bottom:15px;">Patent</span>
+                    </label>
+                  </p>
+                </div>
+
+                </li><li>
+
+                <!-- card radio juris -->
+                <label style="display:block; margin-bottom:10px;">Jurisdiction</label>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputJuris_01" type="radio" value="uspto" required />
+                    <span>USPTO</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputJuris_01" type="radio" value="wipo" />
+                    <span>WIPO</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputJuris_01" type="radio" value="epo" />
+                    <span>EPO</span>
+                  </label>
+                </p>
+                <p>
+                  <label>
+                    <input class="with-gap" name="inputJuris_01" type="radio" value="jpo" />
+                    <span>JPO</span>
+                  </label>
+                </p>
+
+                </li></ul>
+
+              </div> <!-- card-content -->
+            </div> <!-- card -->
+
+
+            <!-- left side buttons -->
+            <ul>
+              <li>
+                <a class="btn-floating waves-effect waves-light pink darken-2" onclick="cloneInputCard()">
+                  <i class="material-icons">add</i>
+                </a>
+              </li>
+              <li style="margin-top:4px; float:right">
+                <button class="btn waves-effect waves-light blue darken-2" type="submit" onclick="submitForm()">
+                  Submit
+                </button>
+              </li>
+            </ul>
+
+          </form>
+        </div> <!-- left col -->
+
+
+        <!------ COL GAP IN MIDDLE ------>
+        <div class="col s1">
+        </div>
+
+        <!------ RIGHT SIDE STUFF ------>
+        <div class="col s6">
+          <span class="flow-text">Output</span>
+
+          <div id="outdiv"></div>
+
+        </div> <!-- right col -->
+
+
+        <!------ RIGHT MARGIN STUFF ------>
+        <div class="col s2">
+          <div>
+            blah blah blah, stuff that was not found
+          </div>
+        </div> <!-- right margin -->
+
+      </div> <!-- row -->
+    </div> <!-- container -->
+
+    <!--JavaScript at end of body for optimized loading-->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/drawtree.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+
+  </body>
+</html>
