@@ -38,8 +38,8 @@ jobs:
         conda install pytest
         pytest
       env:
-          API_key: ${{ secrets.EPO_KEY }}
-          API_secretkey: ${{ secrets.EPO_SECRET_KEY }}
+          EPO_KEY: ${{ secrets.EPO_KEY }}
+          EPO_SECRET_KEY: ${{ secrets.EPO_SECRET_KEY }}
     # -------------------------------------------------------------------------------------
     # connect to codecov
     - name: Generate coverage report
@@ -47,8 +47,8 @@ jobs:
         conda install pytest-cov
         pytest --cov=./ --cov-report=xml
       env:
-          API_key: ${{ secrets.EPO_KEY }}
-          API_secretkey: ${{ secrets.EPO_SECRET_KEY }}
+          EPO_KEY: ${{ secrets.EPO_KEY }}
+          EPO_SECRET_KEY: ${{ secrets.EPO_SECRET_KEY }}
     # -------------------------------------------------------------------------------------
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
