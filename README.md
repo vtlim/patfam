@@ -79,6 +79,9 @@ sudo apt-get install -y curl unzip xvfb libxi6 libgconf-2-4
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt install ./google-chrome-stable_current_amd64.deb
 
+# optional - prevent updates of google chrome (if it updates, you also have to update the chromedriver)
+sudo apt-mark hold google-chrome-stable
+
 # check browser install
 google-chrome --version
 
