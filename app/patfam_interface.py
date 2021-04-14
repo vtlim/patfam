@@ -4,22 +4,23 @@
 TODO
 add description
 
+TODO
 
 front-end hook ups:
- 1. inputs
- 2. can't submit if zero inputs (1 is ok i think)
+ 1. input numbers and app types
+ 2. disable submit button if 0 inputs
+ 3. pass json result to output graph
 
 code structure
  1. async parallel processing for diff jurisdictions (except uspto first)
 
 unit tests
- 1. get_uspto_continuity
- 2. get_wipo_identifiers (target page)
- 3. get_wipo_identifiers (front page)
+ * get_wipo_identifiers (target page)
+ * get_wipo_identifiers (front page)
 
 manual tests
- 1. throw in an unrelated entry: 09/593,589
- 1. what if there are two distinct families
+ * throw in an unrelated entry: 09/593,589
+ * what if there are two distinct families
 
 """
 
@@ -32,8 +33,9 @@ from networkx.drawing.nx_agraph import graphviz_layout, write_dot
 from networkx.readwrite import json_graph
 
 
-from get_uspto_continuity import get_uspto_continuity
-from get_wipo_identifiers import get_wipo_identifiers
+from get_uspto import get_uspto_continuity
+from get_wipo import get_wipo_identifiers
+from get_epo import get_epo_priorities
 
 
 # TODO: include functionality for inputDocType of patno
@@ -42,7 +44,8 @@ list_of_inputs = [
     {"inputNo":"10/110,512",     "inputDocType":"application", "jurisdiction":"uspto"}, # level 2
     {"inputNo":"PCT/US00/27963", "inputDocType":"application", "jurisdiction":"wipo"},  # level 1
     {"inputNo":"WO 01/29057",    "inputDocType":"publication", "jurisdiction":"wipo"},  # level 1 (equiv)
-    {"inputNo":"970724.1",       "inputDocType":"application", "jurisdiction":"epo"},   # level 2
+    {"inputNo":"EP00970724",       "inputDocType":"application", "jurisdiction":"epo"},   # level 2
+    #{"inputNo":"970724.1",       "inputDocType":"application", "jurisdiction":"epo"},   # level 2 (see pad number comment below; start with above line first)
     {"inputNo":"2001-531855",    "inputDocType":"application", "jurisdiction":"jpo"},   # level 2
 ]
 num_inputs = len(list_of_inputs)
@@ -158,8 +161,30 @@ for entry in inputs_epo:
     curr_input = entry["inputNo"]
     curr_type = entry["inputDocType"]
     print(f"  Input entry: {curr_input}")
-    # TODO
-    continue
+
+    # remove any spaces, punctuation (keep numbers/letters)
+    proc_input = re.sub(r'[^a-zA-Z0-9]', '', curr_input)
+
+    # TODO - broken - pad number to go from 970724.1 to EP00970724
+
+    ## >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    #if curr_input = "EP00970724": entry["famData"] = {'parent': ['WO2000US27963', 'US19990418640'], 'child': [], 'uncategorized': []}
+    #continue
+    ## >>>>>>>>>>>>>>>>>>>>>>>>>>> TESTING MODE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+    # TODO try/except
+    # make api request
+    data_epo = get_epo_priorities(proc_input, doc_type=curr_type)
+
+    if data_epo == "ERROR":
+        continue
+        # TODO
+        # f'Sorry, {curr_input_type} "{proc_input}" cannot be retrieved as entered.'
+        # f'Please re-enter the application number in the format: 15123456, or try a new search.'
+        # f'Please re-enter the publication number in the format: US20190123456A1, or try a new search.'
+    else:
+        entry["famData"] = data_epo
+    print(data_epo)
 
 
 # ================================================
