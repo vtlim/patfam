@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--Import custom code and D3 JS library-->
+    <!--Import JS code necessary for document loading-->
     <script type="text/javascript" src="{{ url_for('static', filename='js/d3.v6.min.js') }}" async></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/custom.js') }}" async></script>
+
+    <!--Import ajax jquery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!--Import favicon-->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -17,8 +23,8 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-
-    <title>PatFam | Identify related members of a patent family</title>
+    <!-- Browser window title -->
+    <title>{{site_title}}</title>
   </head>
 
   <body>
@@ -27,6 +33,7 @@
     <div class="navbar-fixed" style="margin-bottom:30px; ">
       <nav>
         <div class="nav-wrapper blue darken-3">
+          <!--page title-->
           <a href="#" class="brand-logo" style="margin-left:20px; ">{{site_title}}</a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="https://github.com/vtlim/patfam">Code</a></li>
@@ -62,7 +69,7 @@
           <span class="flow-text">Input</span>
 
           <!-- all cards go in a single form, easier to validate/submit -->
-          <form method="POST" id="inputForm_01">
+          <div id="inputForm_01">
 
             <!-- input card -->
             <div class="card blue lighten-5" id="inputCard_01">
@@ -143,13 +150,13 @@
                 </a>
               </li>
               <li style="margin-top:4px; float:right">
-                <button class="btn waves-effect waves-light blue darken-2" type="submit" onclick="submitForm()">
+                <button class="get_result btn waves-effect waves-light blue darken-2" type="submit" onclick="submitForm()">
                   Submit
                 </button>
               </li>
             </ul>
 
-          </form>
+          </div>
         </div> <!-- left col -->
 
 
@@ -168,9 +175,7 @@
 
         <!------ RIGHT MARGIN STUFF ------>
         <div class="col s2">
-          <div>
-            blah blah blah, stuff that was not found
-          </div>
+          <div id="outdiv2"></div>
         </div> <!-- right margin -->
 
       </div> <!-- row -->
@@ -181,4 +186,38 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
 
   </body>
+
+
+  <script>
+    console.log("HELLO");
+
+    // dynamically update page with div without need to refresh page
+    $(document).ready(function(){
+
+      // don't show output div before submission
+      //$('#outdiv').hide();
+
+      $('#inputForm_01').on('click', '.get_result', function(){
+        $.ajax({
+          url: "/run_patfam",
+          type: "get",
+          success: function(response) {
+
+            // show the output div
+            //$('#outdiv').show();
+
+            // get response from python fx
+            var treeData = response.treeData;
+
+            // assemble output tree using d3js
+            console.log("PASSING THE TREE DATA", treeData);
+            drawtree(treeData);
+            $("#outdiv2").html(response.uncatData);
+          },
+        });
+      });
+    });
+
+  </script>
+
 </html>
